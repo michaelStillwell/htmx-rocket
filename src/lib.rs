@@ -25,9 +25,9 @@ impl Into<(String, String)> for HxHeader {
 
 impl<'r> rocket::response::Responder<'r, 'static> for HxHeader {
     fn respond_to(self, _: &'r rocket::Request<'_>) -> rocket::response::Result<'static> {
-        let mut builder = Response::build();
+        let h: rocket::http::Header = self.into();
 
-        builder.ok()
+        Response::build().header(h).ok()
     }
 }
 
